@@ -1,53 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import SearchForm from '../components/SearchForm';
 import PlayerProfile from '../components/PlayerProfile';
-import { apiPlayerData, apiPlayerProfile } from '../services/api';
+import { apiPlayerData } from '../services/api';
 
 function App() {
+  const [isSearching, setIsSearching] = useState(false);
   const [searchField, setSearchField] = useState('');
   const [searchErrorMsg, setSearchErrorMsg] = useState('');
-  const [playerProfile, setPlayerProfile] = useState({
-    isLoading: false,
-    profile: {},
-  });
+  const [activePlayerProfileId, setActivePlayerProfileId] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchErrorMsg('');
+    if (!searchField) return; // validation
+
+    setIsSearching(true);
 
     const id = searchField.trim().toLowerCase();
-    apiPlayerData(id)
-      .then((res) => {
-        const { active, 'profile-id': profileId } = res.data;
-
-        if (active === 'true') {
-          setPlayerProfile((state) => ({
-            ...state,
-            isLoading: true,
-          }));
-          setTimeout(() => {
-            fetchPlayerProfile(profileId);
-          }, 1500);
-        } else {
+    setTimeout(() => {
+      apiPlayerData(id)
+        .then((res) => {
+          const { active, 'profile-id': profileId } = res.data;
+          if (active === 'true') {
+            setActivePlayerProfileId(profileId);
+          } else {
+            setSearchErrorMsg('The player is not available');
+          }
+        })
+        .catch((err) => {
           setSearchErrorMsg('The player is not available');
-        }
-      })
-      .catch((err) => {
-        setSearchErrorMsg('The player is not available');
-      });
-  };
-
-  const fetchPlayerProfile = async (profileId) => {
-    try {
-      const res = await apiPlayerProfile(profileId);
-      setPlayerProfile((state) => ({
-        ...state,
-        isLoading: false,
-        profile: res.data,
-      }));
-    } catch (err) {
-      console.error(err);
-    }
+        })
+        .then(() => {
+          setIsSearching(false);
+        });
+    }, 1500);
   };
 
   return (
@@ -62,20 +48,21 @@ function App() {
                 type="input"
                 placeholder="some player id..."
                 onChange={(e) => setSearchField(e.target.value)}
+                disabled={isSearching}
+                autoFocus
               />
             </label>
             <span>{searchErrorMsg}</span>
           </div>
-          <button type="submit" value="Submit">
-            GO
+          <button type="submit" value="Submit" disabled={isSearching}>
+            {isSearching ? 'Searching' : 'GO'}
           </button>
         </form>
       </div>
       <div className="mx-4">
-        <PlayerProfile
-          // isLoading={playerProfile.isLoading}
-          player={playerProfile.profile}
-        />
+        {activePlayerProfileId && (
+          <PlayerProfile profileId={activePlayerProfileId} />
+        )}
       </div>
     </div>
   );
