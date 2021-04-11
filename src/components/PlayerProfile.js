@@ -10,6 +10,7 @@ const PlayerProfile = ({ profileId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log(`useEffect profileId`, profileId);
     setIsLoading(true);
     setTimeout(() => {
       apiPlayerProfile(profileId)

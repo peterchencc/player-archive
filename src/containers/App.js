@@ -1,70 +1,69 @@
 import React, { useState } from 'react';
-// import SearchForm from '../components/SearchForm';
+import SearchForm from '../components/SearchForm';
 import PlayerProfile from '../components/PlayerProfile';
 import { apiPlayerData } from '../services/api';
 
 function App() {
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchField, setSearchField] = useState('');
-  const [searchErrorMsg, setSearchErrorMsg] = useState('');
-  const [activePlayerProfileId, setActivePlayerProfileId] = useState('');
+  // const [playerId, setPlayerId] = useState('');
+  const [player, setPlayer] = useState({
+    id: '',
+    active: '',
+    profileId: '',
+  });
+  // const [activePlayerProfileId, setActivePlayerProfileId] = useState('');
+  const searchPlayer = async (id) => {
+    // setPlayerId(id);
+    setPlayer((state) => ({
+      ...state,
+      id,
+    }));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSearchErrorMsg('');
-    if (!searchField) return; // validation
-
-    setIsSearching(true);
-
-    const id = searchField.trim().toLowerCase();
-    setTimeout(() => {
-      apiPlayerData(id)
-        .then((res) => {
-          const { active, 'profile-id': profileId } = res.data;
-          if (active === 'true') {
-            setActivePlayerProfileId(profileId);
-          } else {
-            setSearchErrorMsg('The player is not available');
-          }
-        })
-        .catch((err) => {
-          setSearchErrorMsg('The player is not available');
-        })
-        .then(() => {
-          setIsSearching(false);
-        });
-    }, 1500);
+    try {
+      const res = await apiPlayerData(id);
+      const { active, 'profile-id': profileId } = res.data;
+      setPlayer((state) => ({
+        ...state,
+        active,
+        profileId,
+      }));
+    } catch (error) {
+      setPlayer((state) => ({
+        ...state,
+        active: '',
+        profileId: '',
+      }));
+    }
   };
 
+  const hasPlayerId = player.id.length !== 0;
+  const isActivePlayer = player.active === 'true' && player.profileId !== 0;
+
   return (
-    <div className="text-center bg-gradient-to-r from-green-400 to-blue-500">
-      <h1 className="p-4 text-4xl font-bold">Player Archive</h1>
-      <div className="my-4">
-        <form onSubmit={handleSubmit}>
-          <div className="">
-            <label>
-              Enter player's id:
-              <input
-                type="input"
-                placeholder="some player id..."
-                onChange={(e) => setSearchField(e.target.value)}
-                disabled={isSearching}
-                autoFocus
-              />
-            </label>
-            <span>{searchErrorMsg}</span>
+    <>
+      <header>
+        <h1 className="p-4 text-4xl font-bold">Player Archive</h1>
+      </header>
+      <main className="text-center bg-gradient-to-r from-green-400 to-blue-500">
+        <div className="container">
+          <SearchForm searchPlayer={searchPlayer} />
+        </div>
+
+        <section>
+          <div>{hasPlayerId && <div>Searching for "{player.id}"</div>}</div>
+
+          <div className="mx-4">
+            {hasPlayerId ? (
+              isActivePlayer ? (
+                <PlayerProfile profileId={player.profileId} />
+              ) : (
+                <div>the player is not available</div>
+              )
+            ) : null}
           </div>
-          <button type="submit" value="Submit" disabled={isSearching}>
-            {isSearching ? 'Searching' : 'GO'}
-          </button>
-        </form>
-      </div>
-      <div className="mx-4">
-        {activePlayerProfileId && (
-          <PlayerProfile profileId={activePlayerProfileId} />
-        )}
-      </div>
-    </div>
+        </section>
+      </main>
+      <footer></footer>
+    </>
   );
 }
 
