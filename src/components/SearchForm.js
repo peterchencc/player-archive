@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const SearchForm = ({ searchPlayer }) => {
   const [searchField, setSearchField] = useState('');
@@ -45,6 +46,10 @@ const SearchForm = ({ searchPlayer }) => {
       </form>
     </section>
   );
+};
+
+SearchForm.propTypes = {
+  searchPlayer: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
