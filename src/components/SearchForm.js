@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const SearchForm = ({ searchPlayer }) => {
   const [searchField, setSearchField] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  // const [searchErrorMsg, setSearchErrorMsg] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,20 +11,17 @@ const SearchForm = ({ searchPlayer }) => {
     setIsSearching(true);
 
     await searchPlayer(id);
-    // console.log(`parentCallback result`, result.message);
-    // if (result.response.status === 403) {
-    //   setSearchErrorMsg('Access Denied');
-    // }
-
     setIsSearching(false);
   };
 
   return (
     <section role="search">
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend> Enter player's id:</legend>
-          <label htmlFor="search">
+        <fieldset className="flex flex-col text-base sm:block sm:text-xl">
+          <legend className="text-secondary mb-2 block">
+            Enter player's id:
+          </legend>
+          <label htmlFor="search" className="w-auto">
             <input
               id="search"
               type="search"
@@ -33,13 +29,15 @@ const SearchForm = ({ searchPlayer }) => {
               onChange={(e) => setSearchField(e.target.value)}
               disabled={isSearching}
               autoFocus
+              className="w-full sm:w-auto bg-secondary text-primary p-4 border-gray border-2 rounded-none focus:outline-none focus:ring-2 focus:ring-gray"
             />
           </label>
-          {/* <div>{searchErrorMsg}</div> */}
+
           <button
             type="submit"
             value="Submit"
             disabled={isSearching || searchField.length === 0}
+            className="bg-chelsea-blue text-white p-4 border-chelsea-blue border-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSearching ? 'Searching' : 'GO'}
           </button>
