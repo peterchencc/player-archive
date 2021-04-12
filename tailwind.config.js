@@ -14,7 +14,6 @@ module.exports = {
       textColor: {
         primary: 'var(--color-text-primary)',
         secondary: 'var(--color-text-secondary)',
-        accent: 'var(--color-text-accent)',
       },
     },
   },
