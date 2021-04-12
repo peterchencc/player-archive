@@ -42,133 +42,75 @@ const PlayerProfile = ({ profileId }) => {
         </div>
       </section>
 
-      <section>
-        <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
-          Info
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">ID</div>
-          <div className="text-xl font-bold">{playerId}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Age</div>
-          <div className="font-bold">{profile.age}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Team</div>
-          <div className="font-bold">{profile.team}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Role</div>
-          <div className="font-bold">{profile.role}</div>
-        </div>
-      </section>
-      <section>
-        <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
-          Top stats
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Goals</div>
-          <div className="font-bold">{stats.goals}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Assists</div>
-          <div className="font-bold">{stats.assists}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Pass Accuracy</div>
-          <div className="font-bold">{stats.passingAccuracy + '%'}</div>
-        </div>
-      </section>
-      <section>
-        <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
-          Attack
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Goals</div>
-          <div className="font-bold">{stats.goals}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Minutes / goal</div>
-          <div className="font-bold">{stats.minutesPerGoal}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">leftFootGoals</div>
-          <div className="font-bold">{stats.leftFootGoals}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">rightFootGoals</div>
-          <div className="font-bold">{stats.rightFootGoals}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">headedGoals</div>
-          <div className="font-bold">{stats.headedGoals}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">shotsOnTarget</div>
-          <div className="font-bold">{stats.shotsOnTarget}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">Total Shots</div>
-          <div className="font-bold">{stats.totalShots}</div>
-        </div>
-      </section>
-      <section>
-        <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
-          Defence
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">totalTackles</div>
-          <div className="font-bold">{stats.totalTackles}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">tacklesWon</div>
-          <div className="font-bold">{stats.tacklesWon}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">duelsWon</div>
-          <div className="font-bold">{stats.duelsWon}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">aerialDuelsWon</div>
-          <div className="font-bold">{stats.aerialDuelsWon}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">clearances</div>
-          <div className="font-bold">{stats.clearances}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">blocks</div>
-          <div className="font-bold">{stats.blocks}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">interceptions</div>
-          <div className="font-bold">{stats.interceptions}</div>
-        </div>
-      </section>
-      <section>
-        <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
-          Discipline
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">yellowCards</div>
-          <div className="font-bold">{stats.yellowCards}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">redCards</div>
-          <div className="font-bold">{stats.redCards}</div>
-        </div>
-        <div className="flex justify-between">
-          <div className="text-secondary">foulsConceded</div>
-          <div className="font-bold">{stats.foulsConceded}</div>
-        </div>
-      </section>
+      <StatsCard title="Info">
+        <StatsItem label="ID" value={playerId} />
+        <StatsItem label="Age" value={profile.age} />
+        <StatsItem label="Team" value={profile.team} />
+        <StatsItem label="Role" value={profile.role} />
+      </StatsCard>
+      <StatsCard title="Top stats">
+        <StatsItem label="Goals" value={stats.goals} />
+        <StatsItem label="Assists" value={stats.assists} />
+        <StatsItem label="Pass Accuracy" value={stats.passingAccuracy + '%'} />
+      </StatsCard>
+      <StatsCard title="Attack">
+        <StatsItem label="Goals" value={stats.assists} />
+        <StatsItem label="Minutes / goal" value={stats.minutesPerGoal} />
+        <StatsItem label="LeftFootGoals" value={stats.leftFootGoals} />
+        <StatsItem label="RightFootGoals" value={stats.rightFootGoals} />
+        <StatsItem label="HeadedGoals" value={stats.headedGoals} />
+        <StatsItem label="ShotsOnTarget" value={stats.shotsOnTarget} />
+        <StatsItem label="Total Shots" value={stats.totalShots} />
+      </StatsCard>
+      <StatsCard title="Defence">
+        <StatsItem label="TotalTackles" value={stats.totalTackles} />
+        <StatsItem label="TacklesWon" value={stats.tacklesWon} />
+        <StatsItem label="duelsWon" value={stats.duelsWon} />
+        <StatsItem label="clearances" value={stats.clearances} />
+        <StatsItem label="blocks" value={stats.blocks} />
+        <StatsItem label="interceptions" value={stats.interceptions} />
+      </StatsCard>
+      <StatsCard title="Discipline">
+        <StatsItem label="yellowCards" value={stats.yellowCards} />
+        <StatsItem label="redCards" value={stats.redCards} />
+        <StatsItem label="foulsConceded" value={stats.foulsConceded} />
+      </StatsCard>
     </div>
   );
 };
 
 PlayerProfile.propTypes = {
   profileId: PropTypes.string.isRequired,
+};
+
+const StatsItem = ({ label, value }) => {
+  return (
+    <div className="flex justify-between">
+      <div className="text-secondary">{label}</div>
+      <div className="font-bold">{value}</div>
+    </div>
+  );
+};
+
+StatsItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+};
+
+const StatsCard = ({ title, children }) => {
+  return (
+    <section>
+      <div className="uppercase font-bold mb-2 py-2 border-gray border-b-2">
+        {title}
+      </div>
+      {children}
+    </section>
+  );
+};
+
+StatsCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export default PlayerProfile;
