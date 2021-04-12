@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../logo.png';
+import Layout from '../components/Layout';
 import SearchForm from '../components/SearchForm';
 import PlayerProfile from '../components/PlayerProfile';
 import { apiPlayerData } from '../services/api';
@@ -40,52 +40,37 @@ function App() {
   const isActivePlayer = player.active === 'true' && player.profileId !== 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-primary text-primary">
-      <header className="bg-secondary text-secondary">
-        <div className="border-b-2 border-gray">
-          <nav className="container mx-auto flex items-center justify-between flex-wrap">
-            <div className="text-2xl font-bold mx-4 sm:mx-8 py-4 flex">
-              <span>OneFootball</span>
-              <img className="ml-4" src={logo} alt="Logo" />
-            </div>
-          </nav>
+    <Layout>
+      <section className="container mx-auto py-4 sm:py-16">
+        <div className="flex flex-col mx-4 sm:mx-8 py-4">
+          <h1 className="text-4xl font-bold mb-4">Player Archive</h1>
+          <SearchForm searchPlayer={searchPlayer} />
         </div>
-      </header>
-      <main className="flex-1">
-        <section className="container mx-auto py-4 sm:py-16">
-          <div className="flex flex-col mx-4 sm:mx-8 py-4">
-            <h1 className="text-4xl font-bold mb-4">Player Archive</h1>
-            <SearchForm searchPlayer={searchPlayer} />
-          </div>
-        </section>
+      </section>
 
-        <section className="container mx-auto">
-          <div className="mx-4 sm:mx-8 py-4 text-base sm:text-xl">
-            {hasPlayerId && (
-              <div className="border-b-2 border-gray py-4 mb-4 font-light">
-                Search result for{' '}
-                <span className="font-normal">'{player.id}'</span>
-              </div>
-            )}
-
-            <div>
-              {hasPlayerId ? (
-                isActivePlayer ? (
-                  <>
-                    <PlayerProfile profileId={player.profileId} />
-                  </>
-                ) : (
-                  <div className="">The player is not available</div>
-                )
-              ) : null}
+      <section className="container mx-auto">
+        <div className="mx-4 sm:mx-8 py-4 text-base sm:text-xl">
+          {hasPlayerId && (
+            <div className="border-b-2 border-gray py-4 mb-4 font-light">
+              Search result for{' '}
+              <span className="font-normal">'{player.id}'</span>
             </div>
+          )}
+
+          <div>
+            {hasPlayerId ? (
+              isActivePlayer ? (
+                <>
+                  <PlayerProfile profileId={player.profileId} />
+                </>
+              ) : (
+                <div className="">The player is not available</div>
+              )
+            ) : null}
           </div>
-        </section>
-      </main>
-      <footer className="flex items-center justify-center p-4">
-        <p>Player Archive - Peter Chen</p>
-      </footer>
-    </div>
+        </div>
+      </section>
+    </Layout>
   );
 }
 
