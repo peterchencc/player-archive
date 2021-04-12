@@ -40,9 +40,11 @@ Setup a loading state while fetching the PlayerProfile's API in `<PlayerProfile>
 
 ### Add Searching state while fetching the player data API
 
-Add `isSearching` state to when form submitting.
+Add `isSearching` state when form is submitting.
 
-### Use CSS Grid in `<PlayerProfile>` component to display responsive layout
+### Use CSS Grid in player profile component to display responsive layout
+
+![Profile Page on tablet/mobile size](./screenshots/profile-responsive.png)
 
 ### What's next?
 
@@ -54,7 +56,7 @@ Add `isSearching` state to when form submitting.
 
 To run this project, use the following commands in your terminal:
 
-```
+```shell
 # clone the repository
 git clone git@github.com:peterchencc/player-archive.git
 
