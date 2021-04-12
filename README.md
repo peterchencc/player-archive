@@ -46,6 +46,11 @@ Add `isSearching` state when form is submitting.
 
 ![Profile Page on tablet/mobile size](./screenshots/profile-responsive.png)
 
+### Use PurgeCSS to remove unused css for production
+
+Because we are using Tailwind, so we must remove those unused utility CSS to reduce production size. By using PurgeCSS, run npm build for production before and after.
+![Reduce difference](./screenshots/purgecss-reduce-size.png)
+
 ### What's next?
 
 - Try to simplify HTML classes between React and Tailwind, can create more child component or using `@apply` to inline existing utility classes into my own custom CSS.
