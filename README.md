@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Player Archive
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9074036d-e107-4268-b6a7-eb375879a4f6/deploy-status)](https://app.netlify.com/sites/player-archive/deploys)
+
+DEMO: [https://player-archive.netlify.app/](https://player-archive.netlify.app/)
+
+A web application to search player archive and display the active player's profile.
+
+By Searching these player's ids: `fabio`, `giorgio`, `francesco`.
+
+![demo1](./screenshots/page.png)
+
+## Technologies
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+- React v17
+- TailwindCSS v2
+- Axios
 
-In the project directory, you can run:
+## General architecture
 
-### `npm start`
+The `<App>` component is wrapped up by `<Layout>` to setup a basic layout with `<Header>`, `<Footer>`. The page contain two major part `<SearchForm>` and `<PlayerProfile>`. And an async function to search player data from first data api `/data/<player-id>.json`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+When the `<SearchForm>` submit, it wil update the playerId to state in `<App>` component. And start fetching player data api to update player state. If the player is active, player's profile-id will pass into `<PlayerProfile>`, and fetching profile data api from `/profile/<profileid>.json`. `<PlayerProfile>` will render view to display the player's info, profile and stats.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Gotchas
 
-### `npm test`
+### Write a responsive and configurable ui
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I'm using TailwindCSS for the project's styling. Refer to OneFootball's iOS player page for responsive design. And inspired by (onefootball.com)[https://onefootball.com/en], I made a similar layout page with dark mode. I Added serval customize color for dark/light theme in `tailwind.config.js`, to extending Tailwind CSS. Using toggle function with React Context to complete the Dark mode switcher.
 
-### `npm run build`
+### Add HTML `autofocus` attribute on the search field
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Auto-focusing the search box when the page loaded, to improve user experience.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Add Loading Indicator while fetching the profile API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Setup a loading state while fetching the PlayerProfile's API in `<PlayerProfile>` component.
 
-### `npm run eject`
+### Add Searching state while fetching the player data API
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Add `isSearching` state to when form submitting.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Use CSS Grid in `<PlayerProfile>` component to display responsive layout
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### What's next?
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Try to simplify HTML classes between React and Tailwind, can create more child component or using `@apply` to inline existing utility classes into my own custom CSS.
+- Improve the error handling when fetching API.
+- More testing!
 
-## Learn More
+## Project setup
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run this project, use the following commands in your terminal:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+# clone the repository
+git clone git@github.com:peterchencc/player-archive.git
 
-### Code Splitting
+# change the folder
+cd player-archive
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# install dependencies
+npm install
 
-### Analyzing the Bundle Size
+# Runs the app in the development mode.
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Compiles and minifies for production
+npm run build
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Run tests
+npm test
+```
