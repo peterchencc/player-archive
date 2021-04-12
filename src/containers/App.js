@@ -5,15 +5,13 @@ import PlayerProfile from '../components/PlayerProfile';
 import { apiPlayerData } from '../services/api';
 
 function App() {
-  // const [playerId, setPlayerId] = useState('');
   const [player, setPlayer] = useState({
     id: '',
     active: '',
     profileId: '',
   });
-  // const [activePlayerProfileId, setActivePlayerProfileId] = useState('');
+
   const searchPlayer = async (id) => {
-    // setPlayerId(id);
     setPlayer((state) => ({
       ...state,
       id,
@@ -52,22 +50,16 @@ function App() {
         <div className="mx-4 sm:mx-8 py-4 text-base sm:text-xl">
           {hasPlayerId && (
             <div className="border-b-2 border-gray py-4 mb-4 font-light">
-              Search result for{' '}
-              <span className="font-normal">'{player.id}'</span>
+              Search result for <span className="font-bold">'{player.id}'</span>
             </div>
           )}
 
-          <div>
-            {hasPlayerId ? (
-              isActivePlayer ? (
-                <>
-                  <PlayerProfile profileId={player.profileId} />
-                </>
-              ) : (
-                <div className="">The player is not available</div>
-              )
-            ) : null}
-          </div>
+          {hasPlayerId &&
+            (isActivePlayer ? (
+              <PlayerProfile profileId={player.profileId} />
+            ) : (
+              <div>The player is not available.</div>
+            ))}
         </div>
       </section>
     </Layout>

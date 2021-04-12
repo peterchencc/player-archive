@@ -11,21 +11,19 @@ const PlayerProfile = ({ profileId }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
-      apiPlayerProfile(profileId)
-        .then((res) => {
-          const { id, profile, stats } = res.data;
-          setPlayerId(id);
-          setProfile(profile);
-          setStats(stats);
-        })
-        .catch((err) => {
-          console.error(err);
-        })
-        .then(() => {
-          setIsLoading(false);
-        });
-    }, 1500);
+    apiPlayerProfile(profileId)
+      .then((res) => {
+        const { id, profile, stats } = res.data;
+        setPlayerId(id);
+        setProfile(profile);
+        setStats(stats);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .then(() => {
+        setIsLoading(false);
+      });
   }, [profileId]);
 
   return isLoading ? (
