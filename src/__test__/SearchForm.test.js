@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SearchForm from '../components/SearchForm';
 
-test('rendering <SearchForm>', () => {
+it('should rendering <SearchForm>', () => {
   const searchPlayer = jest.fn();
   render(<SearchForm searchPlayer={searchPlayer} />);
 
@@ -12,7 +12,7 @@ test('rendering <SearchForm>', () => {
   expect(screen.getByRole('searchbox')).toBeInTheDocument();
 });
 
-test('can submit when searchbox has input', () => {
+it('should enabled submit button when searchbox has input', () => {
   const searchPlayer = jest.fn();
   render(<SearchForm searchPlayer={searchPlayer} />);
 
@@ -22,7 +22,7 @@ test('can submit when searchbox has input', () => {
   expect(submitButton).toBeEnabled();
 });
 
-test('handleSubmit will call searchPlayer', async () => {
+it('should handle form submit and call searchPlayer', async () => {
   const searchPlayer = jest.fn();
   render(<SearchForm searchPlayer={searchPlayer} />);
 

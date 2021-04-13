@@ -10,7 +10,7 @@ beforeEach(() => {
   React.useContext = mockUseContext;
 });
 
-test('render <Header />', () => {
+it('should render <Header />', () => {
   render(<Header />);
   expect(screen.getByText(/OneFootball/)).toBeInTheDocument();
   expect(screen.getByText(/Dark Mode/)).toBeInTheDocument();
