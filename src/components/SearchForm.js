@@ -27,6 +27,7 @@ const SearchForm = ({ searchPlayer }) => {
               id="search"
               type="search"
               placeholder="some player id..."
+              value={searchField}
               onChange={(e) => setSearchField(e.target.value)}
               disabled={isSearching}
               autoFocus

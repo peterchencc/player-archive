@@ -7,10 +7,10 @@ const getInitialTheme = () => {
       return storedTheme;
     }
 
-    const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
-    if (userMedia.matches) {
-      return 'dark';
-    }
+    // const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    // if (userMedia.matches) {
+    //   return 'dark';
+    // }
   }
 
   return 'dark';
